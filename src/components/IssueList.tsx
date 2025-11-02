@@ -2,9 +2,10 @@
 
   interface IssueListProps {
     issues: Issue[]  // This is the prop type
+    onDeleteIssue: (id: string) => void
   }
 
-  export function IssueList({ issues }: IssueListProps) {
+  export function IssueList({ issues, onDeleteIssue }: IssueListProps) {
     return (
       <div>
         <h2>Issues</h2>
@@ -16,6 +17,7 @@
                 <div>{issue.priority}</div>
                 <div>{issue.status}</div>
                 <div>{issue.description}</div>
+                <button onClick={() => onDeleteIssue(issue.id)}>Delete</button>
             </li>
         ))}
         </ul>

@@ -50,6 +50,10 @@ function App() {
         localStorage.setItem('issues', JSON.stringify(issues))
     }, [issues])
 
+    const handleDeleteIssue = (id: string) => {
+        setIssues(issues.filter(issue => issue.id !== id))
+    }
+
     // Function to add a new issue
     const handleAddIssue = (newIssue: Omit<Issue, 'id' | 'createdAt'>) => {
       const issue: Issue = {
@@ -64,7 +68,7 @@ function App() {
         <>
         <h1>Issue Tracker</h1>
         <IssueForm onAddIssue={handleAddIssue} />
-        <IssueList issues={issues} />
+        <IssueList issues={issues} onDeleteIssue={handleDeleteIssue} />
         </>
     )
 }
