@@ -1,4 +1,4 @@
-# Learning React and typescript  
+# Learning React and TypeScript
 
 This is a silly little example I'm using to learn react. The goal here is use LLM to teach me react and typescript by doing. 
 Everytime I have attempted to learn react and typescript has been reading some code and manual, which is not suffiecient for me. I learn the most by doing and practicing, so here I'm planning to do some silly little toy examples that help me practice. 
