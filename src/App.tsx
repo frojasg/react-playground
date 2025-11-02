@@ -32,10 +32,8 @@ import type { Issue } from './types'
     }
   ]
 
-
 function App() {
-    const [count, setCount] = useState(0)
-    // Convert mockIssues to state
+    // Convert initialIssues to state
     const [issues, setIssues] = useState<Issue[]>(initialIssues)
 
     // Function to add a new issue
