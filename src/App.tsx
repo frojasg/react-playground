@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { IssueList } from './components/IssueList'
 import { IssueForm } from './components/IssueForm'
@@ -34,7 +34,21 @@ import type { Issue } from './types'
 
 function App() {
     // Convert initialIssues to state
-    const [issues, setIssues] = useState<Issue[]>(initialIssues)
+    const [issues, setIssues] = useState<Issue[]>(() => {
+        const saved = localStorage.getItem('issues')
+        if (saved) {
+            const issuesJson = JSON.parse(saved)
+            return issuesJson.map((issue: any) => ({
+                ...issue,
+                createdAt: new Date(issue.createdAt)  // Convert string to Date
+            }))
+        }
+        return initialIssues
+    })
+    // useEffect runs code after render:
+    useEffect(() => {
+        localStorage.setItem('issues', JSON.stringify(issues))
+    }, [issues])
 
     // Function to add a new issue
     const handleAddIssue = (newIssue: Omit<Issue, 'id' | 'createdAt'>) => {
@@ -45,7 +59,6 @@ function App() {
       }
       setIssues([...issues, issue])  // Add to the list
     }
-     
 
     return (
         <>
