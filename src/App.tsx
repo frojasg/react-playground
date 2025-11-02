@@ -38,7 +38,7 @@ function App() {
         const saved = localStorage.getItem('issues')
         if (saved) {
             const issuesJson = JSON.parse(saved)
-            return issuesJson.map((issue: any) => ({
+            return issuesJson.map((issue: Omit<Issue, 'createdAt'> & { createdAt: string }) => ({
                 ...issue,
                 createdAt: new Date(issue.createdAt)  // Convert string to Date
             }))
@@ -53,6 +53,11 @@ function App() {
     const handleDeleteIssue = (id: string) => {
         setIssues(issues.filter(issue => issue.id !== id))
     }
+    const handleUpdateIssue = (id: string, updates: Partial<Issue>) => {
+    setIssues(issues.map(issue =>
+      issue.id === id ? { ...issue, ...updates } : issue
+    ))
+  }
 
     // Function to add a new issue
     const handleAddIssue = (newIssue: Omit<Issue, 'id' | 'createdAt'>) => {
@@ -68,7 +73,7 @@ function App() {
         <>
         <h1>Issue Tracker</h1>
         <IssueForm onAddIssue={handleAddIssue} />
-        <IssueList issues={issues} onDeleteIssue={handleDeleteIssue} />
+        <IssueList issues={issues} onDeleteIssue={handleDeleteIssue} onUpdateIssue={handleUpdateIssue}/>
         </>
     )
 }
